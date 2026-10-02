@@ -1,0 +1,123 @@
+<title>OD팀 작업 시트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: 시트마다 한 구역. 구역 머리에 시트 이름과 "시트 열기", 그 아래 탭이 한 줄씩 링크로 이어진다 (탭 이름 + 설명 + 화살표). */
+:root {
+  --bg: #f2f5f7;
+  --surface: #ffffff;
+  --ink: #17232d;
+  --ink-soft: #52616d;
+  --line: #d9e0e5;
+  --accent: #0a6c74;
+  --accent-ink: #ffffff;
+  --accent-wash: #e1f1f2;
+  --c-appen: #a84f00;
+  --c-od: #5a3fc0;
+  --font-body: "Noto Sans KR", system-ui, -apple-system, "Malgun Gothic", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e171d; --surface: #15212a; --ink: #e6edf1; --ink-soft: #9db0bc; --line: #263642;
+    --accent: #5fc9cf; --accent-ink: #0a1a1d; --accent-wash: #173238; --c-appen: #f2b560; --c-od: #b8a6ff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e171d; --surface: #15212a; --ink: #e6edf1; --ink-soft: #9db0bc; --line: #263642;
+  --accent: #5fc9cf; --accent-ink: #0a1a1d; --accent-wash: #173238; --c-appen: #f2b560; --c-od: #b8a6ff;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.6; word-break: keep-all; overflow-wrap: break-word; padding-inline: 16px; padding-block: 40px 64px; }
+.wrap { max-width: 880px; margin-inline: auto; display: flex; flex-direction: column; gap: 32px; }
+header { display: flex; flex-direction: column; gap: 14px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+h1 { margin: 0; font-size: clamp(26px, 5vw, 34px); line-height: 1.25; font-weight: 700; text-wrap: balance; }
+.lede { margin: 0; color: var(--ink-soft); max-width: 62ch; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.sheet { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); overflow: hidden; }
+.sheet-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.sheet-title { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.name { margin: 0; font-size: 16px; font-weight: 500; overflow-wrap: anywhere; }
+.sub { margin: 0; font-size: 13px; color: var(--ink-soft); }
+.open { display: inline-block; font-size: 13px; font-weight: 500; text-decoration: none; color: var(--accent-ink); background: var(--accent); border-radius: 6px; padding: 5px 12px; white-space: nowrap; }
+.open:hover { filter: brightness(1.08); }
+.tab-list { margin: 0; padding: 0; list-style: none; }
+.tab-link { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) auto; align-items: baseline; gap: 4px 16px; padding: 12px 18px; border-top: 1px solid var(--line); color: inherit; text-decoration: none; }
+.tab-list li:first-child .tab-link { border-top: 0; }
+.tab-link:hover { background: var(--accent-wash); }
+.tab-name { font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--accent); overflow-wrap: anywhere; }
+.tab-desc { font-size: 14px; color: var(--ink-soft); min-width: 0; }
+.go { font-size: 13px; color: var(--accent); white-space: nowrap; }
+@media (max-width: 560px) {
+  .tab-link { grid-template-columns: minmax(0, 1fr) auto; }
+  .tab-desc { grid-column: 1 / -1; grid-row: 2; }
+}
+strong { font-weight: 700; color: var(--ink); }
+strong.appen { color: var(--c-appen); }
+strong.od { color: var(--c-od); }
+footer { font-size: 13px; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 16px; }
+@media (prefers-reduced-motion: no-preference) { .open { transition: filter .12s; } .tab-link { transition: background .12s; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Alchera · OD팀 · 작업</div>
+    <h1>OD팀 작업 시트</h1>
+    <p class="lede">작업할 때 열어서 입력하는 시트입니다. 탭 이름을 누르면 바로 이동합니다.</p>
+  </header>
+
+  <section class="sheet">
+    <div class="sheet-head">
+      <div class="sheet-title">
+        <h2 class="name">[KR] PJT64 OD_worksheet</h2>
+        <p class="sub"><strong class="od">내부데이터</strong> 작업 시트</p>
+      </div>
+      <a class="open" href="https://docs.google.com/spreadsheets/d/16Ilc-Yr2qtv-ixcpgmVshe2WlorWgxYrEaGddDRZiG0/edit" target="_blank" rel="noopener">시트 열기</a>
+    </div>
+    <ul class="tab-list">
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/16Ilc-Yr2qtv-ixcpgmVshe2WlorWgxYrEaGddDRZiG0/edit?gid=0" target="_blank" rel="noopener"><span class="tab-name">test</span><span class="tab-desc">납품 작업 전에 <strong>신입 작업자</strong>가 <strong>연습</strong>하는 작업 목록입니다. 테스트 작업을 확인하고 <strong>진행 상황</strong>을 입력합니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/16Ilc-Yr2qtv-ixcpgmVshe2WlorWgxYrEaGddDRZiG0/edit?gid=251365442" target="_blank" rel="noopener"><span class="tab-name">work_sheet</span><span class="tab-desc"><strong class="od">내부 데이터</strong>의 큐보이드 작업 시트입니다. 해야 할 작업과 <strong>진행 상태</strong>(작업 중, 완료)를 표시합니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/16Ilc-Yr2qtv-ixcpgmVshe2WlorWgxYrEaGddDRZiG0/edit?gid=246774833" target="_blank" rel="noopener"><span class="tab-name">code_error</span><span class="tab-desc"><strong class="od">내부 데이터</strong> 작업물을 코드로 검사해 에러가 나온 건의 목록입니다. 고쳐야 하는 에러인지 허용되는 에러인지 확인해 <strong>반려(retake)</strong> 또는 <strong>pass</strong>로 표시합니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/16Ilc-Yr2qtv-ixcpgmVshe2WlorWgxYrEaGddDRZiG0/edit?gid=838902190" target="_blank" rel="noopener"><span class="tab-name">ratio_subclass</span><span class="tab-desc"><strong class="od">내부 데이터</strong> 작업물 중 <strong>큐보이드 크기</strong>가 비정상적인 건의 목록입니다. 잘못 작업한 건지 허용되는 크기인지 확인해 <strong>반려(retake)</strong> 또는 <strong>pass</strong>로 표시합니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/16Ilc-Yr2qtv-ixcpgmVshe2WlorWgxYrEaGddDRZiG0/edit?gid=1393802984" target="_blank" rel="noopener"><span class="tab-name">img_inspect</span><span class="tab-desc"><strong class="od">내부 데이터</strong> 작업 이미지를 직접 보고 놓친 작업이나 잘못 지정한 클래스가 있는지 확인합니다. 결과에 따라 <strong>반려(retake)</strong> 또는 <strong>pass</strong>로 표시합니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/16Ilc-Yr2qtv-ixcpgmVshe2WlorWgxYrEaGddDRZiG0/edit?gid=1361482064" target="_blank" rel="noopener"><span class="tab-name">work_log</span><span class="tab-desc">img 작업을 한 시간에 <strong>몇 프레임</strong> 했는지 <strong>직접 기록</strong>하는 탭입니다. 날짜별로 이름과 시간대별 프레임 수를 적습니다.</span><span class="go">탭 열기 →</span></a></li>
+    </ul>
+  </section>
+
+  <section class="sheet">
+    <div class="sheet-head">
+      <div class="sheet-title">
+        <h2 class="name">[KR] PJT64 OD_inspecting</h2>
+        <p class="sub"><strong class="appen">협력업체 appen</strong> 작업 시트</p>
+      </div>
+      <a class="open" href="https://docs.google.com/spreadsheets/d/1m2ujMxda9OX2Vq5y8cHdyiGrYmqK0yun6J5I7mgx7Q4/edit" target="_blank" rel="noopener">시트 열기</a>
+    </div>
+    <ul class="tab-list">
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/1m2ujMxda9OX2Vq5y8cHdyiGrYmqK0yun6J5I7mgx7Q4/edit?gid=0" target="_blank" rel="noopener"><span class="tab-name">code_error</span><span class="tab-desc"><strong class="appen">협력업체 appen</strong>의 작업 결과를 코드로 검사해 에러가 나온 건의 목록입니다. 고쳐야 하는 에러인지 허용되는 에러인지 확인해 <strong>반려(retake)</strong> 또는 <strong>pass</strong>로 표시합니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/1m2ujMxda9OX2Vq5y8cHdyiGrYmqK0yun6J5I7mgx7Q4/edit?gid=947460921" target="_blank" rel="noopener"><span class="tab-name">ratio_subclass</span><span class="tab-desc"><strong class="appen">협력업체 appen</strong>이 작업한 객체 중 <strong>큐보이드 크기</strong>가 비정상적인 건의 목록입니다. 잘못 작업한 건지 허용되는 크기인지 확인해 <strong>반려(retake)</strong> 또는 <strong>pass</strong>로 표시합니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/1m2ujMxda9OX2Vq5y8cHdyiGrYmqK0yun6J5I7mgx7Q4/edit?gid=1937153002" target="_blank" rel="noopener"><span class="tab-name">img_inspect</span><span class="tab-desc"><strong class="appen">협력업체 appen</strong>이 작업한 이미지를 직접 보고 놓친 작업이나 잘못 지정한 클래스가 있는지 확인합니다. 결과에 따라 <strong>반려(retake)</strong> 또는 <strong>pass</strong>로 표시합니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/1m2ujMxda9OX2Vq5y8cHdyiGrYmqK0yun6J5I7mgx7Q4/edit?gid=1542190201" target="_blank" rel="noopener"><span class="tab-name">repeated_error</span><span class="tab-desc"><strong class="appen">협력업체 appen</strong>의 img 작업에서 <strong>반복해서 나오는 에러</strong>를 유형별로 기록합니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/1m2ujMxda9OX2Vq5y8cHdyiGrYmqK0yun6J5I7mgx7Q4/edit?gid=1063118504" target="_blank" rel="noopener"><span class="tab-name">work_log</span><span class="tab-desc">img 작업을 한 시간에 <strong>몇 시퀀스</strong> 했는지 <strong>직접 기록</strong>하는 탭입니다. 날짜별로 이름과 시간대별 시퀀스 수를 적습니다.</span><span class="go">탭 열기 →</span></a></li>
+    </ul>
+  </section>
+
+  <section class="sheet">
+    <div class="sheet-head">
+      <div class="sheet-title">
+        <h2 class="name">[KR] PJT64 Pairing_worksheet</h2>
+        <p class="sub">Pairing 작업 시트</p>
+      </div>
+      <a class="open" href="https://docs.google.com/spreadsheets/d/1Oafu0Wq2_4Rpc11uh7qfNbUwAab83UFD9mcUFephITc/edit?gid=1931108710" target="_blank" rel="noopener">시트 열기</a>
+    </div>
+    <ul class="tab-list">
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/1Oafu0Wq2_4Rpc11uh7qfNbUwAab83UFD9mcUFephITc/edit?gid=1931108710" target="_blank" rel="noopener"><span class="tab-name">folder</span><span class="tab-desc">페어링 작업 목록입니다. 날짜별로 폴더와 담당자를 확인하고 <strong>진행 상황</strong>을 입력합니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/1Oafu0Wq2_4Rpc11uh7qfNbUwAab83UFD9mcUFephITc/edit?gid=560668723" target="_blank" rel="noopener"><span class="tab-name">work_log</span><span class="tab-desc">페어링 작업을 한 시간에 <strong>몇 시퀀스</strong> 했는지 <strong>직접 기록</strong>하는 탭입니다. 날짜별로 이름과 시간대별 시퀀스 수를 적습니다.</span><span class="go">탭 열기 →</span></a></li>
+    </ul>
+  </section>
+
+  <footer>시트가 열리지 않으면 담당자에게 공유를 요청하시기 바랍니다.</footer>
+</div>

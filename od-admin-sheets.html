@@ -1,0 +1,139 @@
+<title>OD팀 관리용 시트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: 시트마다 한 구역. 구역 머리에 시트 이름과 "시트 열기", 그 아래 탭이 한 줄씩 링크로 이어진다 (탭 이름 + 설명 + 화살표). 작업용 페이지와 같은 구조. */
+:root {
+  --bg: #f2f5f7;
+  --surface: #ffffff;
+  --ink: #17232d;
+  --ink-soft: #52616d;
+  --line: #d9e0e5;
+  --accent: #0a6c74;
+  --accent-ink: #ffffff;
+  --accent-wash: #e1f1f2;
+  --c-appen: #a84f00;
+  --c-od: #5a3fc0;
+  --warn: #8a5a00;
+  --warn-wash: #fbf0d9;
+  --font-body: "Noto Sans KR", system-ui, -apple-system, "Malgun Gothic", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e171d; --surface: #15212a; --ink: #e6edf1; --ink-soft: #9db0bc; --line: #263642;
+    --accent: #5fc9cf; --accent-ink: #0a1a1d; --accent-wash: #173238; --c-appen: #f2b560; --c-od: #b8a6ff; --warn: #e6b85c; --warn-wash: #2e2512;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e171d; --surface: #15212a; --ink: #e6edf1; --ink-soft: #9db0bc; --line: #263642;
+  --accent: #5fc9cf; --accent-ink: #0a1a1d; --accent-wash: #173238; --c-appen: #f2b560; --c-od: #b8a6ff; --warn: #e6b85c; --warn-wash: #2e2512;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.6; word-break: keep-all; overflow-wrap: break-word; padding-inline: 16px; padding-block: 40px 64px; }
+.wrap { max-width: 880px; margin-inline: auto; display: flex; flex-direction: column; gap: 32px; }
+header { display: flex; flex-direction: column; gap: 14px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+h1 { margin: 0; font-size: clamp(26px, 5vw, 34px); line-height: 1.25; font-weight: 700; text-wrap: balance; }
+.lede { margin: 0; color: var(--ink-soft); max-width: 62ch; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.sheet { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); overflow: hidden; }
+.sheet-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.sheet-title { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.name { margin: 0; font-size: 16px; font-weight: 500; overflow-wrap: anywhere; }
+.sub { margin: 0; font-size: 13px; color: var(--ink-soft); }
+.open { display: inline-block; font-size: 13px; font-weight: 500; text-decoration: none; color: var(--accent-ink); background: var(--accent); border-radius: 6px; padding: 5px 12px; white-space: nowrap; }
+.open:hover { filter: brightness(1.08); }
+.tab-list { margin: 0; padding: 0; list-style: none; }
+.tab-link { display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr) auto; align-items: baseline; gap: 4px 16px; padding: 12px 18px; border-top: 1px solid var(--line); color: inherit; text-decoration: none; }
+.tab-list li:first-child .tab-link { border-top: 0; }
+.tab-link:hover { background: var(--accent-wash); }
+.tab-name { font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--accent); overflow-wrap: anywhere; }
+.tab-desc { font-size: 14px; color: var(--ink-soft); min-width: 0; }
+.go { font-size: 13px; color: var(--accent); white-space: nowrap; }
+@media (max-width: 560px) {
+  .tab-link { grid-template-columns: minmax(0, 1fr) auto; }
+  .tab-desc { grid-column: 1 / -1; grid-row: 2; }
+}
+.note { font-size: 13px; color: var(--warn); background: var(--warn-wash); border-radius: 6px; padding: 10px 14px; margin: 0; max-width: 70ch; }
+.how { display: flex; flex-direction: column; gap: 10px; }
+.how h2 { margin: 0; font-size: 18px; font-weight: 700; }
+.steps { margin: 0; padding: 0; list-style: none; counter-reset: step; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.steps li { counter-increment: step; position: relative; padding: 12px 18px 12px 46px; border-top: 1px solid var(--line); font-size: 14px; }
+.steps li:first-child { border-top: 0; }
+.steps li::before { content: counter(step); position: absolute; left: 18px; top: 12px; font-family: var(--font-mono); font-weight: 500; color: var(--accent); }
+.how-note { margin: 0; font-size: 13px; color: var(--ink-soft); max-width: 70ch; }
+strong { font-weight: 700; color: var(--ink); }
+strong.appen { color: var(--c-appen); }
+strong.od { color: var(--c-od); }
+footer { font-size: 13px; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 16px; }
+@media (prefers-reduced-motion: no-preference) { .open { transition: filter .12s; } .tab-link { transition: background .12s; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Alchera · OD팀 · 관리용</div>
+    <h1>OD팀 관리용 시트</h1>
+    <p class="lede">작업량을 집계해 보여주는 스프레드시트 3개입니다. 아래 방식으로 <strong>자동 반영</strong>되므로 확인만 하시기 바랍니다.</p>
+  </header>
+
+  <section class="how">
+    <h2>자동 반영 방식</h2>
+    <ol class="steps">
+      <li>작업자가 <strong>작업 시트</strong>(OD_inspecting, OD_worksheet)에 입력합니다.</li>
+      <li>스크립트가 <strong>5분마다</strong> 작업 시트를 확인하고, 새로 완료된 건에는 <strong>그 시각을 기록</strong>합니다.</li>
+      <li>기록한 시각으로 <strong>사람별·시간대별(9~18시) 건수</strong>를 집계합니다. OD_worksheet의 work_log 값은 그대로 가져옵니다.</li>
+      <li>집계 결과를 요약, <strong class="appen">appen</strong>, <strong class="od">내부데이터</strong> 파일에 씁니다. <strong>값이 바뀐 경우에만</strong> 갱신합니다.</li>
+    </ol>
+  </section>
+
+  <section class="sheet">
+    <div class="sheet-head">
+      <div class="sheet-title">
+        <h2 class="name">검수 작업량 요약</h2>
+        <p class="sub">작업량 요약 시트</p>
+      </div>
+      <a class="open" href="https://docs.google.com/spreadsheets/d/174s2_RJudA95rVPAUAHjHtb0-ti7t9nDLeVpc8eazzY/edit" target="_blank" rel="noopener">시트 열기</a>
+    </div>
+    <ul class="tab-list">
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/174s2_RJudA95rVPAUAHjHtb0-ti7t9nDLeVpc8eazzY/edit?gid=1981556091" target="_blank" rel="noopener"><span class="tab-name">[요약] 월별 작업량</span><span class="tab-desc">사람별·작업별 <strong>월 작업량</strong>을 한 표로 확인합니다. 월은 <strong>슬라이서</strong>로 고릅니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/174s2_RJudA95rVPAUAHjHtb0-ti7t9nDLeVpc8eazzY/edit?gid=1800175601" target="_blank" rel="noopener"><span class="tab-name">[요약] 일별 작업량</span><span class="tab-desc">사람별·작업별 <strong>하루 작업량</strong>을 확인합니다. 날짜는 <strong>슬라이서</strong>로 고릅니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/174s2_RJudA95rVPAUAHjHtb0-ti7t9nDLeVpc8eazzY/edit?gid=951849167" target="_blank" rel="noopener"><span class="tab-name">[요약] 마지막 작업 기록</span><span class="tab-desc">달력에서 날짜를 체크하면 <strong>그 날 기록</strong>이 나옵니다. 사람마다 마지막 작업, 마지막 시각, <strong>일일 작업 시간</strong>을 확인합니다. 지난 날짜 기록은 그대로 유지됩니다.</span><span class="go">탭 열기 →</span></a></li>
+    </ul>
+  </section>
+
+  <section class="sheet">
+    <div class="sheet-head">
+      <div class="sheet-title">
+        <h2 class="name">검수 작업량 appen</h2>
+        <p class="sub"><strong class="appen">협력업체 appen</strong> 작업 현황 시트</p>
+      </div>
+      <a class="open" href="https://docs.google.com/spreadsheets/d/1YjOyDc2GnDn1RplFOquj-HfBLCrL-x-KQW93iv6F2wU/edit" target="_blank" rel="noopener">시트 열기</a>
+    </div>
+    <ul class="tab-list">
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/1YjOyDc2GnDn1RplFOquj-HfBLCrL-x-KQW93iv6F2wU/edit?gid=113198732" target="_blank" rel="noopener"><span class="tab-name">[appen] code_error</span><span class="tab-desc"><strong class="appen">appen</strong> code_error 작업의 <strong>날짜별 시간대 건수</strong>입니다. 월은 상단 <strong>슬라이서</strong>로 고릅니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/1YjOyDc2GnDn1RplFOquj-HfBLCrL-x-KQW93iv6F2wU/edit?gid=1040577551" target="_blank" rel="noopener"><span class="tab-name">[appen] ratio</span><span class="tab-desc"><strong class="appen">appen</strong> ratio 작업의 <strong>날짜별 시간대 건수</strong>입니다. <strong>subclass</strong>는 행 기준이고, <strong>object</strong>는 같은 객체를 하나로 계산한 값입니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/1YjOyDc2GnDn1RplFOquj-HfBLCrL-x-KQW93iv6F2wU/edit?gid=459135184" target="_blank" rel="noopener"><span class="tab-name">[appen] img_inspect</span><span class="tab-desc"><strong class="appen">appen</strong> img_inspect 작업의 <strong>날짜별 시간대 건수</strong>입니다.</span><span class="go">탭 열기 →</span></a></li>
+    </ul>
+  </section>
+
+  <section class="sheet">
+    <div class="sheet-head">
+      <div class="sheet-title">
+        <h2 class="name">검수 작업량 내부데이터</h2>
+        <p class="sub"><strong class="od">내부데이터</strong> 작업 현황 시트</p>
+      </div>
+      <a class="open" href="https://docs.google.com/spreadsheets/d/1SfFIw3yo6mZOzty4Xccbd8onDQOHA5sysGcPBD6sPzM/edit" target="_blank" rel="noopener">시트 열기</a>
+    </div>
+    <ul class="tab-list">
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/1SfFIw3yo6mZOzty4Xccbd8onDQOHA5sysGcPBD6sPzM/edit?gid=1650295740" target="_blank" rel="noopener"><span class="tab-name">[내부데이터] code_error</span><span class="tab-desc"><strong class="od">내부데이터</strong> code_error 작업의 <strong>날짜별 시간대 건수</strong>입니다. 월은 상단 <strong>슬라이서</strong>로 고릅니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/1SfFIw3yo6mZOzty4Xccbd8onDQOHA5sysGcPBD6sPzM/edit?gid=1904998352" target="_blank" rel="noopener"><span class="tab-name">[내부데이터] ratio</span><span class="tab-desc"><strong class="od">내부데이터</strong> ratio 작업의 <strong>날짜별 시간대 건수</strong>입니다. <strong>subclass</strong>는 행 기준이고, <strong>object</strong>는 같은 객체를 하나로 계산한 값입니다.</span><span class="go">탭 열기 →</span></a></li>
+      <li><a class="tab-link" href="https://docs.google.com/spreadsheets/d/1SfFIw3yo6mZOzty4Xccbd8onDQOHA5sysGcPBD6sPzM/edit?gid=1740293783" target="_blank" rel="noopener"><span class="tab-name">[내부데이터] img_inspect</span><span class="tab-desc"><strong class="od">내부데이터</strong> img_inspect 작업의 <strong>날짜별 시간대 건수</strong>입니다.</span><span class="go">탭 열기 →</span></a></li>
+    </ul>
+  </section>
+
+  <footer>작업자가 입력하는 작업 시트는 신규 입사자 안내용 페이지(OD팀 작업 시트)에 따로 있습니다.</footer>
+</div>
